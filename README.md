@@ -1,3 +1,3 @@
 # Data-Analytics
 
-Kumpulan Project Terkait Data Analytics yang telah aku buat.
+Kumpulan project terkait Data Analytics yang telah saya buat.
