@@ -29,7 +29,7 @@ In this project there are several processes that I do such as:
 - And print some required table data into Excel for Tableau
 - Then visualize using Tableau for Excel data and (Python if using SQL Server or Pandas with Numpy Library) to find existing insights.
 
-Sql Server is a Dbms Tools that can collaborate well with excel data in xlsx format. And Tableau can visualize Excel data quite well.
+Sql Server is a DBMS Tools that can collaborate well with excel data in xlsx format. And Tableau can visualize Excel data quite well.
 
 Tableau Visualization is [here](https://public.tableau.com/views/DamarDjatiWahyuKemala-NYC-AirbnbAnalysis-CaseStudyRevouID/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link)
 
