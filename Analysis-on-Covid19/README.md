@@ -30,7 +30,7 @@ Sql Server is a Dbms Tools that can collaborate well with excel data in xlsx for
 
 ## Insight That I found
 
-Tableau Visualization is [here](https://public.tableau.com/views/TableauCovid-19ResultAnalysis/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link)
+Tableau Visualization Covid-19 is [here](https://public.tableau.com/views/TableauCovid-19ResultAnalysis/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link)
 
 - The percentage of deaths due to covid-19 in the world reaches 1.24% or as many as 61,336,800 people until 2022 in February.
 - The continent with the highest total mortality is in Europe with a total death toll of 10 million, and the lowest is on the African continent.
