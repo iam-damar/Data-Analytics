@@ -31,7 +31,7 @@ In this project there are several processes that I do such as:
 
 Sql Server is a DBMS Tools that can collaborate well with excel data in xlsx format. And Tableau can visualize Excel data quite well.
 
-Tableau Visualization is [here](https://public.tableau.com/views/DamarDjatiWahyuKemala-NYC-AirbnbAnalysis-CaseStudyRevouID/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link)
+Tableau Visualization NYC-Airbnb is [here](https://public.tableau.com/views/DamarDjatiWahyuKemala-NYC-AirbnbAnalysis-CaseStudyRevouID/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link)
 
 <br><br>
 <h3 align="center">
