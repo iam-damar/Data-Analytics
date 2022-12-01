@@ -1,0 +1,249 @@
+---
+title: "California-Avocado-Analysis"
+author:
+  - name: "Damar Djati Wahyu Kemala"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_notebook
+# (Nama output file tidak boleh dirubah!)
+---
+
+---
+
+### Langkah 1: Import Data
+`california_avocados` dataset,
+Data yang akan diimport menggunakan format csv (comma separated values)
+yang dimana dataset ini diperoleh dari Kaggle.
+Link dataset:
+[California Avocado](https://www.kaggle.com/datasets/jarredpriester/california-avocado-production-19802020)
+
+```{r load data}
+avocados_data <- read.csv("cali_avocados.csv")
+```
+
+### Langkah 2: Melihat Data
+
+Data `California Avocado` terdiri dari 11 kolom dan 420 Baris.
+
+```{r read data}
+head(avocados_data)
+```
+Melihat daftar kolom yang ada pada dataset `california_avocados`.
+
+```{r columns data}
+colnames(avocados_data)
+```
+Mengganti format penamaan kolom yang memuat tanda titik dengan tanda garis bawah.
+
+```{r rename columns name}
+colnames(avocados_data)[2] = "Commodity_code"
+colnames(avocados_data)[3] = "Crop_name"
+colnames(avocados_data)[4] = "County_code"
+colnames(avocados_data)[6] = "Harvested_Acres"
+colnames(avocados_data)[9] = "Price_P/U"
+```
+
+Melihat nama kolom setelah dilakukan format.
+
+```{r read again columns data}
+colnames(avocados_data)
+```
+### Langkah 3: Mengunduh dan Menload Package tidyverse & ggplot2
+
+```{r install dan load tidyverse and ggplot2 packages}
+install.packages("ggplot2")
+install.packages("tidyverse")
+
+# Load Packages
+library(ggplot2)
+library(tidyverse)
+```
+
+### Langkah 4: Mengecek Null Value
+
+Pada langkah ini akan mengecek nilai Null pada setiap kolom data,
+
+```{r check Null Values}
+summary(avocados_data)
+```
+Terdapat nilai Null sebanyak 26 baris data (terbanyak)
+
+### Langkah 5: Menghapus Nilai Null/NA Values
+
+Dari 18 data yang bernilai NA, maka dapat kita hapus.
+
+```{r Drop NA values}
+library(dplyr)
+
+avocados_data_v2 <- filter(avocados_data, Production != "NA\'s")
+```
+
+Mengecek Data setelah dilakukan pembersihan N/A Values.
+
+```{r Check Data after Null values Cleaned}
+summary(avocados_data_v2)
+```
+Data telah bersih dari Null Values.
+Selanjutnya menghapus kolom yang tidak digunakan untuk analisis.
+
+### Langkah 6: Menghapus Kolom yang Tidak Digunakan untuk Analisis
+
+Kolom `Commodity_code`, `County_code`, `Crop_name`, dan `Value`
+
+```{r Drop Particular Columns}
+avocados_data_v3 <- avocados_data_v2[-c(2:4,11)]
+colnames(avocados_data_v3)
+```
+Melakukan cek data kembali apakah data `california_avocados` sudah dalam format yang baik
+
+```{r}
+head(avocados_data_v3)
+```
+
+
+### Langkah 7: Mengecek Tipe Data Masing-Masing Kolom
+
+Mengetahui tipe data setiap kolom untuk menghindari format tipe data pada kolom yang tidak konsisten.
+
+```{r check on columns data type}
+sapply(avocados_data_v3, class)
+```
+Dari tipe data pada tiap kolom diatas kita perlu mengubah nilai kolom Harvested_Acres dan Production
+Menjadi tipe Integer.
+
+```{r convert data type in harvested_acres, and production columns}
+avocados_data_v3$Harvested_Acres <-as.integer(avocados_data_v3$Harvested_Acres)
+avocados_data_v3$Production <-as.integer(avocados_data_v3$Production)
+```
+
+Mengecek kembali tipe data pada tiap kolom dataset `california avocados`
+
+```{r check again data type in each columns}
+sapply(avocados_data_v3, class)
+```
+```{r read dataset again}
+head(avocados_data_v3)
+```
+
+
+```{r min yield}
+min(avocados_data_v3$Yield)
+```
+```{r max yield}
+max(avocados_data_v3$Yield)
+```
+
+
+
+### Langkah 7: Membuat Chart/Plot
+
+Mengetahui wawasan apa saja yang dapat ditemukan didalam dataset `California_avocados`.<br/>
+
+---
+**Pertanyaan:**<br/>
+
+&nbsp;&nbsp;&nbsp;&nbsp; 1. Produksi/panen avocado tertinggi pada tahun berapa? (jika diambil 3 tahun terakhir yaitu 2020-2018) <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2. Kabupaten mana saja yang ada di California memperoleh Produksi/panen avocado terendah dan tertinggi ditahun 2020? <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 3. Jumlah yield tertinggi ada dikabupaten mana? <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 4. Jumlah yield terendah ada dikabupaten mana?  <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 5. Luas Lahan Panen yang paling luas ada di kabupaten mana dan berapa hasil produksinya? <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 6. Berapa rata-rata yield yang diperoleh disetiap kabupaten di California? <br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 7. Tampilkan harga produksi per unit avocado dari yang paling rendah dan yang paling tinggi. <br/>
+  
+
+**Menjawab Pertanyaan:**<br/>
+
+##### &nbsp;&nbsp;&nbsp; 1. Produksi/panen avocado tertinggi pada tahun berapa? (jika diambil 3 tahun terakhir yaitu 2020-2018)?
+
+<!-- Membuat Beberapa variabel untuk menampung ringkasan data Produksi Avocado berdasarkan tahun. -->
+
+```{r summarizing production of avocado by each years}
+ProductionByYear <- stack(tapply(avocados_data_v3$Production, avocados_data_v3$Year, FUN = sum))
+
+colnames(ProductionByYear)[1] = "total_production"
+colnames(ProductionByYear)[2] = "year"
+
+glimpse(ProductionByYear)
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hasil visualisasi untuk total produksi selama 3 tahun terakhir.
+
+```{r visualization produksi/panen avocado based on last 3 years}
+ProductionByYear %>%
+  filter(ProductionByYear$year %in% (2018:2020)) %>%
+  ggplot(aes(x=year, y=total_production, fill=year)) +
+  geom_col()+
+  labs(title = "Produksi/panen avocado di California berdasarkan 3 tahun terakhir", 
+       subtitle = "Total Produksi diambil mulai tahun 2018-2020", 
+       caption = "Dataset California Avocados diambil dari : Kaggle",
+       x = "Tahun", y = "Total Produksi")
+
+```
+
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mengetahui Total Produksi dari tahun 2018 - 2020:
+  
+```{r show total production in 2020}
+p2020 <- ProductionByYear[ProductionByYear$year == 2020, "total_production"]
+p2019 <- ProductionByYear[ProductionByYear$year == 2019, "total_production"]
+p2018 <- ProductionByYear[ProductionByYear$year == 2018, "total_production"]
+
+production3year <- c(p2018, p2019, p2020)
+threeyears <- c(2018, 2019, 2020)
+
+dataproduction3year <- data.frame(threeyears, production3year)
+
+names(dataproduction3year) <- c("Tahun", "Total_Produksi_Avocado")
+
+dataproduction3year
+
+```
+<br/>
+
+**Menjawab Pertanyaan:**<br/> 
+
+##### &nbsp;&nbsp;&nbsp; 2. Kabupaten mana saja yang ada di California memperoleh Produksi/panen avocado terendah dan tertinggi ditahun 2020?
+
+
+<!-- Membuat Variabel Baru untuk mengelompokan data total produksi berdasarkan kabupaten tahun 2020 -->
+
+```{r visualization produksi avocado based on county/kabupaten}
+ProductionByCounty <- stack(tapply(avocados_data_v3$Production, avocados_data_v3$County, FUN = sum))
+
+names(ProductionByCounty) <- c("total_production", "county")
+
+glimpse(ProductionByCounty)
+```
+<!-- Kabupaten dengan Produksi Avocado terbanyak dan terendah tahun 2020-->
+
+```{r county with produksi/panen avocado terbanyak & terendah}
+CountyWithMaxProduction <- ProductionByCounty[ProductionByCounty$total_production == max(ProductionByCounty$total_production),]
+
+CountyWithMinProduction <- ProductionByCounty[ProductionByCounty$total_production == min(ProductionByCounty$total_production),]
+
+MaxMinProduction <- c(CountyWithMaxProduction$total_production, CountyWithMinProduction$total_production)
+
+CountyProduction <- c(CountyWithMaxProduction$county, CountyWithMinProduction$county)
+
+DataProductionByCounty <-data.frame(CountyProduction, MaxMinProduction)
+
+glimpse(DataProductionByCounty)
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hasil visualisasi untuk Kabupaten yang memproduksi avocado terendah dan terbanyak ditahun 2020.
+
+```{r visualization Produksi/panen avocado based on county}
+ggplot(data = DataProductionByCounty)+
+  geom_col(mapping = aes(x = CountyProduction, y = MaxMinProduction, fill=CountyProduction))+
+  coord_cartesian(ylim = c(0, 2000)) +
+  labs(title = "Produksi/panen avocado terendah dan tertinggi di California Tahun 2020", 
+       subtitle = "Total Produksi diambil berdasarkan per kabupaten di California", 
+       caption = "Dataset California Avocados diambil dari : Kaggle",
+       x = "Nama Kabupaten", y = "Total Produksi")
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Menampilkan hasil total produksi di kedua kabupaten diatas:
+
+```{r result of total produksi/panen avocado based on kabupaten}
+names(DataProductionByCounty) <- c("Kabupaten", "Total Produksi")
+
+DataProductionByCounty
+```
+
