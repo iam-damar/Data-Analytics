@@ -1,6 +1,3 @@
-
-
-
 <p align="center">
   <a href="https://public.tableau.com/views/TableauCovid-19ResultAnalysis/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link" target="_blank">
   <img src="https://user-images.githubusercontent.com/61747306/188301980-4543357a-c3ed-44c0-b6ab-62bcfe23f6f5.png" width="200" style="transform: rotate(20deg);">
@@ -32,6 +29,10 @@ In this project there are several processes that I do such as:
 Sql Server is a DBMS Tools that can collaborate well with excel data in xlsx format. And Tableau can visualize Excel data quite well.
 
 Tableau Visualization NYC-Airbnb is [here](https://public.tableau.com/views/DamarDjatiWahyuKemala-NYC-AirbnbAnalysis-CaseStudyRevouID/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link)
+
+#### Certificate
+
+[RevouId-Certificate](https://drive.google.com/file/d/1ocFxnNZ3J5G839Y3vJUvPweyYkhlFc8Z/view?usp=sharing)
 
 <br><br>
 <h3 align="center">
