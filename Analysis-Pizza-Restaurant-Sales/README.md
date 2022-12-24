@@ -1,6 +1,2 @@
-## Analysis on Pizza Restaurant Sales
+## Analysis Pizza Restaurant Sales
 ---
-
-Analisa pada restoran pizza yang bernama Plato's Pizza
-
-### Dataset
