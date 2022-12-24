@@ -9,4 +9,4 @@ Link ke dataset: [Pizza_Sales](https://www.kaggle.com/datasets/shilongzhuang/piz
 
 ### Analysis di Jupyter Notebook
 
-Link: [Analysis-notebook-Damar](https://colab.research.google.com/drive/{1rfSjLym-7ECNpycr574syxS2pIu4LtG2}#offline=true&sandboxMode=true)
+Link: [Analysis-notebook-Damar](https://colab.research.google.com/drive/1rfSjLym-7ECNpycr574syxS2pIu4LtG2#offline=true&sandboxMode=true)
